@@ -8,6 +8,6 @@ int main()
     float cgpa = 8.9;
 
     cout << "\n My name is: " << name;
-    cout << "\n My roll number is: " << rollno;
-    cout << "\n My CGPA is: " << cgpa;
+    cout << "\n My roll number is: " << rollno << endl
+         << "\n My CGPA is: " << cgpa;
 }
