@@ -16,31 +16,40 @@ int main()
 
     system("clear");
 
+    // ask user for username and password
     cout << "\n Enter username: ";
     cin >> userEnteredUsername;
     userEnteredPassword = getpass("\n Enter password: ");
 
+    // check wethear username and password given by user is correct or not
     if (username == userEnteredUsername && password == userEnteredPassword)
     {
+        // ask user for balance
         system("clear");
         cout << "\n Enter your balance for the shopping: ";
         cin >> balance;
         system("clear");
 
+        // Display all available products
         cout << "\n\t\t\t *****Avalable Items*****";
         cout << "\n\t Name \t Quantity \t Price";
         cout << "\n\t " << name1 << " \t " << quantity1 << " \t\t " << price1;
         cout << "\n\t " << name2 << " \t " << quantity2 << " \t\t " << price2;
         cout << "\n\t\t\t\t Balance: " << balance;
 
+        // initialize all variables required for storing details for purchased products
         int purchasedQuantity1, purchasedQuantity2;
         float total = 0;
         bool purchased1 = false, purchased2 = false;
 
+        // Ask user for quantity of product 1
         cout << "\n\t Enter quantity of product 1 to be purchased: ";
         cin >> purchasedQuantity1;
+
+        // check wethear required quantities are available or not
         if (quantity1 >= purchasedQuantity1)
         {
+            // check wethear user has required balance to purchase or not
             if (price1 * purchasedQuantity1 <= balance)
             {
                 total = price1 * purchasedQuantity1;
