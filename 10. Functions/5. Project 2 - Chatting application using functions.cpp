@@ -3,19 +3,83 @@
 #include <iomanip>
 using namespace std;
 
+void printMainMenu()
+{
+    system("clear");
+
+    cout << "\n\t 1. Regisration";
+    cout << "\n\t 2. Login";
+    cout << "\n\t 3. Exit";
+}
+
+void printSubMenu()
+{
+    system("clear");
+    cout << "\n\t 1. Send a message";
+    cout << "\n\t 2. Read a message";
+    cout << "\n\t 3. Logout";
+}
+
+bool isRegistrationAvailable(int nUsers)
+{
+    if (nUsers != 2)
+        return true;
+    return false;
+}
+
+void askUsernamePassword(string &userEnteredUsername, string &userEnteredPassword)
+{
+    cout << "\n Enter username: ";
+    cin >> userEnteredUsername;
+    cout << "\n Enter password: ";
+    userEnteredPassword = getpass("");
+}
+
+void registerUser(string &username, string &password, string &userEnteredUsername, string &userEnteredPassword, int &nUsers)
+{
+    username = userEnteredUsername;
+    password = userEnteredPassword;
+    nUsers++;
+}
+
+bool login(string &username, string &password, string &userEnteredUsername, string &userEnteredPassword)
+{
+    if (username == userEnteredUsername && password == userEnteredPassword)
+    {
+        return true;
+    }
+    return false;
+}
+
+void readMessage(string &message, string &username)
+{
+    if (message != "")
+    {
+        cout << "\n\t Message: " << message;
+        cout << "\n\t Sent by: " << username;
+    }
+    else
+        cout << "\n\t No message in Inbox";
+}
+
+void pressAnyKey()
+{
+    cout << "\n\n"
+         << setw(120) << "Press any key to continue...";
+    getpass("");
+}
+
 int main()
 {
     string username1, password1, message1 = "";
     string username2, password2, message2 = "";
     int choiceMainMenu = 0, nUsers = 0;
 
+    printMainMenu();
+
     while (choiceMainMenu != 3)
     {
-        system("clear");
-
-        cout << "\n\t 1. Regisration";
-        cout << "\n\t 2. Login";
-        cout << "\n\t 3. Exit";
+        printMainMenu();
         cout << "\n Enter your choice: ";
         cin >> choiceMainMenu;
 
@@ -24,45 +88,34 @@ int main()
         case 1:
         {
             string userEnteredUsername, userEnteredPassword;
-            if (nUsers != 2)
+            if (isRegistrationAvailable(nUsers))
             {
-                cout << "\n Enter username: ";
-                cin >> userEnteredUsername;
-                cout << "\n Enter password: ";
-                userEnteredPassword = getpass("");
+                askUsernamePassword(userEnteredUsername, userEnteredPassword);
                 if (nUsers == 0)
                 {
-                    username1 = userEnteredUsername;
-                    password1 = userEnteredPassword;
-                    nUsers++;
+                    registerUser(username1, password1, userEnteredUsername, userEnteredPassword, nUsers);
                 }
                 else
                 {
-                    username2 = userEnteredUsername;
-                    password2 = userEnteredPassword;
-                    nUsers++;
+                    registerUser(username2, password2, userEnteredUsername, userEnteredPassword, nUsers);
                 }
                 cout << "\n\t\t ***Registration is successfull!!!. Please login";
             }
             else
-                cout << "\n Registration os closed!!";
+                cout << "\n Registration iss closed!!";
             break;
         }
         case 2:
         {
             string userEnteredUsername, userEnteredPassword;
-            cout << "\n Enter username: ";
-            cin >> userEnteredUsername;
-            cout << "\n Enter password: ";
-            userEnteredPassword = getpass("");
+            askUsernamePassword(userEnteredUsername, userEnteredPassword);
 
             int loginId = 0;
-
-            if (username1 == userEnteredUsername && password1 == userEnteredPassword)
+            if (login(username1, password1, userEnteredUsername, userEnteredPassword))
             {
                 loginId = 1;
             }
-            else if (username2 == userEnteredUsername && password2 == userEnteredPassword)
+            else if (login(username2, password2, userEnteredUsername, userEnteredPassword))
             {
                 loginId = 2;
             }
@@ -71,13 +124,11 @@ int main()
                 cout << "\n\t ***Invalid credentials***";
                 break;
             }
+
             int choiceSubMenu = 0;
             while (choiceSubMenu != 3)
             {
-                system("clear");
-                cout << "\n\t 1. Send a message";
-                cout << "\n\t 2. Read a message";
-                cout << "\n\t 3. Logout";
+                printSubMenu();
                 cout << "\n Enter your choice: ";
                 cin >> choiceSubMenu;
 
@@ -98,29 +149,16 @@ int main()
                         message1 = message;
                     }
                 }
-
                 break;
 
                 case 2:
                     if (loginId == 1)
                     {
-                        if (message1 != "")
-                        {
-                            cout << "\n\t Message: " << message1;
-                            cout << "\n\t Sent by: " << username2;
-                        }
-                        else
-                            cout << "\n\t No message in Inbox";
+                        readMessage(message1, username2);
                     }
                     else
                     {
-                        if (message2 != "")
-                        {
-                            cout << "\n\t Message: " << message2;
-                            cout << "\n\t Sent by: " << username1;
-                        }
-                        else
-                            cout << "\n\t No message in Inbox";
+                        readMessage(message1, username2);
                     }
                     break;
                 case 3:
@@ -130,11 +168,8 @@ int main()
                     cout << "\n Invalid option";
                     break;
                 }
-                cout << "\n\n"
-                     << setw(120) << "Press any key to continue...";
-                getpass("");
+                pressAnyKey();
             }
-
             break;
         }
 
@@ -146,8 +181,6 @@ int main()
             cout << "\n Invalid option";
             break;
         }
-        cout << "\n\n"
-             << setw(120) << "Press any key to continue...";
-        getpass("");
+        pressAnyKey();
     }
 }
