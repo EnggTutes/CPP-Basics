@@ -106,4 +106,29 @@ int main()
         cout << "\n Value of ch is invalid";
         break;
     }
+
+    cout << "\n========================================================";
+
+    // You need to add curly brackets for the case if you want to declare a string in a case
+    switch (ch)
+    {
+    case 97:
+    {
+        string name;
+        cout << "\n value of ch is a";
+        break;
+    }
+    case 'b':
+        cout << "\n value of ch is b";
+        break;
+    case 99:
+        cout << "\n value of ch is c";
+        break;
+    case 'd':
+        cout << "\n value of ch is d";
+        break;
+    default:
+        cout << "\n Value of ch is invalid";
+        break;
+    }
 }

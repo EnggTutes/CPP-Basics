@@ -65,7 +65,7 @@ int main()
 
     cout << "\n=================================================================================\n";
 
-    // If you uncomment the following code, it will go into loop
+    // If you uncomment the following code, it will go into infinite loop
 
     // i = 0;       // initialization
     // while (true) // True / False
